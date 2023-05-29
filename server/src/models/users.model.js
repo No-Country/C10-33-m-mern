@@ -1,9 +1,13 @@
 import { Schema, model } from "mongoose";
-
+import passportlocal from 'passport-local-mongoose'; 
 const usersSchema = new Schema({
     firstName:{
         type: String,
         required: true,
+    },
+    authId:{
+        type: String,
+        require: true
     },
     lastName:{
         type:String,
@@ -16,17 +20,17 @@ const usersSchema = new Schema({
     },
     password:{
         type: String,
-        required: true,
     },
-    image:{
-        type: String,
-    },
-    role: [
-        {
-          type: Schema.Types.ObjectId,
-          ref: 'Role',
-        }
-    ]
+    //image:{
+        //type: String,
+    //},
+    //role: [
+        //{
+        //  type: Schema.Types.ObjectId,
+        //  ref: 'Roles',
+       // }
+  //  ]
 })
+
 
 export const usersModel = model('Users', usersSchema)

@@ -1,15 +1,27 @@
-import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
-import Home from '../../screens/Home';
-import Map from '../../screens/Map';
-
-const Tab = createMaterialBottomTabNavigator();
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Scanner from '../../screens/Scanner';
+import HamburgerDrawerStack from '../HamburgerDrawerStack';
 
 const MainStack = () => {
+  const Stack = createNativeStackNavigator();
+
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Map" component={Map} />
-    </Tab.Navigator>
+    <Stack.Navigator>
+      <Stack.Screen
+        name="HamburgerDrawerStack"
+        component={HamburgerDrawerStack}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Scannerscreen"
+        component={Scanner}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Stack.Navigator>
   );
 };
 

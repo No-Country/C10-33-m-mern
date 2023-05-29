@@ -1,11 +1,8 @@
 import styled from 'styled-components/native';
 
 const Container = styled.View`
-  display: flex;
-  background-color: #dbe4c6;
   height: 100%;
-  justify-content: center;
-  align-items: center;
+  position: relative;
 `;
 
 const Title = styled.Text`

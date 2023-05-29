@@ -18,7 +18,12 @@ const Login = ({navigation: {navigate}}) => {
 
     console.log(auth0);
   }, []);
-
+  const emailRegex = /^[a-z0-9._%+-]+@[a-z]+(\.[a-z]{2,4}){1,2}$/;
+  const passRegex=/^(\w+){6,10}$/;
+  const testEmail=()=>{
+    let tfTest=[0,0]
+    
+  }
   return (
     <>
       <Fields>

@@ -2,18 +2,26 @@
 import express from "express";
 import session from "express-session"; 
 import mongoStore from 'connect-mongo';
-import handlebars from 'express-handlebars';
+import handlebars from 'express-handlebars'; 
 import morgan from 'morgan';
 import cors from 'cors';
-import passport from 'passport';
+import { auth } from 'express-oauth2-jwt-bearer';
 // CUSTOM IMPORTS
 import {__dirname} from "./utils.js" ;
 import './dbConfig.js';
+import { PORT, URI_MONGO,ISSUER_BASE_URL,API_IDENTIFIER} from './const.js';
+// ROUTES
 import usersRouter from './routes/users.router.js';
-import recyclesRouter from './routes/recycles.router.js';
+import scoresRouter from './routes/scores.router.js';
 import viewsRouter from './routes/views.router.js';
-import checkJwt from "./auth0/auth0.js";
-import { PORT, URI_MONGO } from './config.js';
+import donationsRouter from './routes/donations.router.js'
+import exchangesRouter from './routes/exchanges.router.js'
+import benefitsRouter  from './routes/benefits.router.js'
+import movementsRouter  from './routes/movements.router.js'
+import centersRouter from './routes/centers.router.js'
+import newsRouter  from './routes/news.router.js'
+import faqsRouter  from './routes/faqs.router.js'
+
 
 const app = express();
 
@@ -26,23 +34,20 @@ app.use(express.urlencoded({extended: true,}));
 app.use(express.static(__dirname+"/public"));
 app.use(morgan('dev'));
 app.use(cors());
-app.use(checkJwt)
-/*
-estoy nos servira para aceptar las llamadas del front, debemos esperar a que este lista la URL del front para hacerlo funcional
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', FRONT_DOMINIO); // update to match the domain you will make the request from
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-  next();
-});
 
-*/
+app.use(
+  auth({
+    issuerBaseURL: ISSUER_BASE_URL,
+    audience: API_IDENTIFIER,
+  }),
+);
+
+
 // HANDLEBARS SET UP
-app.engine('handlebars', handlebars.engine())
-app.set('views', __dirname + '/views')
-app.set('view engine', 'handlebars')
+app.engine('handlebars', handlebars.engine());
+app.set('views', __dirname + '/views');
+app.set('view engine', 'handlebars');
 
 
 //CONEXIÓN A MONGO ATLAS
@@ -58,22 +63,26 @@ app.use(
     })
     )
 
-// PASSPORT CONFIGURATION
-app.use(passport.initialize())
-app.use(passport.session())
-
-
 // ROUTES
-app.use('/GreenCycle/views', viewsRouter)  
-app.use('/GreenCycle/users', usersRouter)  
-app.use('/GreenCycle/recycles', recyclesRouter)
 
+app.use('/views', viewsRouter)  
+app.use('/users', usersRouter)  
+app.use('/scores', scoresRouter)
+app.use('/donations', donationsRouter)
+app.use('/exchanges', exchangesRouter)
+app.use('/benefits', benefitsRouter)
+app.use('/movements', movementsRouter)
+app.use('/centers', centersRouter)
+app.use('/news', newsRouter)
+app.use('/faqs', faqsRouter)
+
+
+// ROOT PATH 
 app.get('/',(req,res)=>{
-  res.redirect('/GreenCycle/views/login')
+  res.redirect('/views/login');
 })
 
+app.listen(app.get('port'), () => console.log(`App listening in port ${app.get('port')} => http://localhost:4200`));
 
-
-app.listen(app.get('port'), () => console.log(`App listening in port ${app.get('port')} ---> http://localhost:3000`));
 
 
