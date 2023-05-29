@@ -3,7 +3,6 @@ import {Container, SearchbarComp, MenuBtn, DrawerComp} from './styles';
 import {StyleSheet, Image} from 'react-native';
 import MapLibreGL from '@maplibre/maplibre-react-native';
 import {STADIA_API_KEY} from '@env';
-import Drawer from '../../stacks/DrawerStack';
 import {DEFAULT_CENTER_COORDINATE} from 'utils';
 import exampleIcon from '/assets/GreenMapMarker.png';
 import {useDispatch} from 'react-redux';

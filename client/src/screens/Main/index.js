@@ -7,7 +7,7 @@ import {AuthContextProvider} from '../../AuthContext';
 import store from '../../store';
 
 const Main = () => {
-  const [auth, setAuth] = React.useState(() => store.getState().auth);
+  const [auth, setAuth] = React.useState(() => store.getState().user);
   const navTheme = {
     colors: {
       background: '#171717',
