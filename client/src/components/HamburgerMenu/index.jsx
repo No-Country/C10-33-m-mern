@@ -5,8 +5,19 @@ import FAQs from '../Icons/FAQs';
 import News from '../Icons/News';
 import Contact from '../Icons/Contact';
 import {Container, StyledButton, Label, HeaderContainer} from './styles';
+import {useAuth0} from 'react-native-auth0';
+import {signOut} from '../../store/slices/user';
+import {useDispatch} from 'react-redux';
 
 const HamburgerMenu = ({navigation}) => {
+  const {clearSession} = useAuth0();
+  const dispatch = useDispatch();
+
+  const onLogout = async () => {
+    dispatch(signOut());
+    await clearSession({federated: true}, {localStorageOnly: false});
+  };
+
   return (
     <>
       <HeaderContainer>
@@ -55,6 +66,7 @@ const HamburgerMenu = ({navigation}) => {
           <Label>Contáctanos</Label>
         </StyledButton>
       </Container>
+      <StyledButton title="Salir de cuenta" onPress={() => onLogout()} />
     </>
   );
 };

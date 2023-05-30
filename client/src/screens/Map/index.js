@@ -25,7 +25,6 @@ const Map = ({navigation}) => {
     !!Object.keys(selectedLocation).length;
 
   const handleSnap = i => {
-    console.log('i en handlesnap', i);
     sheetRef.current?.snapToIndex(i);
   };
 
@@ -35,7 +34,6 @@ const Map = ({navigation}) => {
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
       );
 
-      console.log('isGranted', isGranted);
       return setPermission({
         isAndroidPermissionGranted: isGranted,
         isFetchingAndroidPermission: false,
@@ -70,7 +68,6 @@ const Map = ({navigation}) => {
 
   useEffect(() => {
     if (selectedLocation) {
-      console.log('selectedLocation = ', selectedLocation);
       handleSnap(1);
     } else {
       handleSnap(-1);
@@ -79,10 +76,9 @@ const Map = ({navigation}) => {
 
   if (IS_ANDROID && !permission.isAndroidPermissionGranted) {
     if (permission.isFetchingAndroidPermission) {
-      console.log('2');
       null;
     }
-    console.log('1');
+
     return (
       <>
         <MapComponent
@@ -98,7 +94,6 @@ const Map = ({navigation}) => {
     );
   }
   if (IS_ANDROID && permission.isAndroidPermissionGranted) {
-    console.log('selectedLocationExist === ', selectedLocationExist);
     return (
       <>
         <MapComponent

@@ -6,24 +6,14 @@ import config from '../../../auth0-configuration';
 
 const Login = ({navigation: {navigate}}) => {
   const [data, setData] = useState({email: '', password: ''});
-  console.log('en login!!!');
-  console.log('email = ', data.email);
-  console.log('password = ', data.password);
 
   useEffect(() => {
     const auth0 = new Auth0({
       domain: config.domain,
       clientId: config.clientId,
     });
-
-    console.log(auth0);
   }, []);
-  const emailRegex = /^[a-z0-9._%+-]+@[a-z]+(\.[a-z]{2,4}){1,2}$/;
-  const passRegex=/^(\w+){6,10}$/;
-  const testEmail=()=>{
-    let tfTest=[0,0]
-    
-  }
+
   return (
     <>
       <Fields>

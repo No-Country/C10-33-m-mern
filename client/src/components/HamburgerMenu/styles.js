@@ -26,6 +26,7 @@ const StyledButton = styled(BaseButton)`
   display: flex;
   width: 100%;
   padding-top: ${verticalScale(18)}px;
+  padding-bottom: ${verticalScale(10)}px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -35,4 +36,5 @@ const Label = styled.Text`
   font-size: 18px;
   padding-top: ${verticalScale(18)}px;
 `;
+
 export {HeaderContainer, Container, Label, StyledButton};

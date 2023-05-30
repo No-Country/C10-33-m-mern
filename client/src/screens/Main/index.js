@@ -5,29 +5,23 @@ import MainStack from '../../stacks/MainStack';
 import AuthStack from '../../stacks/AuthStack';
 import {AuthContextProvider} from '../../AuthContext';
 import store from '../../store';
+import {useAuth0} from 'react-native-auth0';
 
 const Main = () => {
-  const [auth, setAuth] = React.useState(() => store.getState().user);
+  const {user} = useAuth0();
+  const loggedIn = user !== undefined && user !== null;
+
   const navTheme = {
     colors: {
       background: '#171717',
     },
   };
 
-  useEffect(() => {
-    const unsubscribe = store.subscribe(() => {
-      setAuth(store.getState().user.isLoggedIn);
-    });
-
-    console.log('auth = ', auth);
-    return unsubscribe;
-  }, []);
-
   return (
     <SafeAreaView style={{flex: 1}}>
       <AuthContextProvider>
         <NavigationContainer theme={navTheme}>
-          {!auth ? <AuthStack /> : <MainStack />}
+          {!loggedIn ? <AuthStack /> : <MainStack />}
         </NavigationContainer>
       </AuthContextProvider>
     </SafeAreaView>
